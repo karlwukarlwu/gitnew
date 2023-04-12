@@ -1,29 +1,26 @@
 name: NASA Project CI
+# Controls when the action will run. Triggers the workflow on push or pull request
+# 这个on 的意思是什么时候会触发这个workflow
+# 这些在github的文档里面有介绍
+# 他这里只部署了前端
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    push:
+        branches: [ master ]
+#        当push的时候会触发这个workflow
+#    说句实话我应该学一下git
+    pull_request:
+        branches: [ master ]
+#        当pull_request的时候会触发这个workflow
 jobs:
-  build:
-    env:
-      CI: true
-      MONGO_URL: mongodb://localhost/nasa
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x]
-        mongodb-version: ['4.4']
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js version ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Use MongoDB from GitHub actions
-        uses: supercharge/mongodb-github-action@1.6.0
-        with:
-          mongodb-version: ${{ matrix.mongodb-version }}
-      - run: npm install
-      - run: npm run build --prefix client
-      - run: npm test
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+#              name 是可选的 告诉是哪一步
+            - name: Use Node.js 18.x
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18.x
+            - run: npm install
+            - run: npm i react-scripts
+            - run: npm run build  --perfix client
