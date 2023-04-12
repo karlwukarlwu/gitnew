@@ -22,5 +22,4 @@ jobs:
               with:
                   node-version: 18.x
             - run: npm install
-            - run: npm i react-scripts
             - run: npm run build  --perfix client
