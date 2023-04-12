@@ -17,9 +17,9 @@ jobs:
         steps:
             - uses: actions/checkout@v2
 #              name 是可选的 告诉是哪一步
-            - name: Use Node.js 18.x
+            - name: Use Node.js version 18.x
               uses: actions/setup-node@v3
               with:
-                  node-version: 18.x
+                  node-version: '18'
             - run: npm install
             - run: npm run build  --perfix client
